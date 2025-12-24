@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ProfileCard from "@/components/ProfileCard";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { BorderBeam } from "@/components/ui/border-beam";
 import type { BodyParseResult, CitationEntry } from "@/app/lib/academicParser";
 import { countAcademicWords } from "@/app/lib/docxParser";
 import { FileText, Layers, Search, ShieldCheck, UploadCloud } from "lucide-react";
@@ -218,7 +219,15 @@ export default function Home() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-5 sm:mt-10 lg:mt-12">
+            <div className="mt-8 relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-5 sm:mt-10 lg:mt-12">
+              <BorderBeam
+                size={320}
+                borderWidth={1}
+                colorFrom="#7d64ff"
+                colorTo="#ff5dc1"
+                duration={7}
+                className="opacity-80"
+              />
               <TooltipProvider>
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "text" | "docx")} className="space-y-4">
                   <TabsList className="grid w-full grid-cols-2 bg-white/5">
