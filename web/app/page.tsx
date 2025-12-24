@@ -14,7 +14,7 @@ import { Liquid } from "@/components/uilayouts/liquid-gradient";
 import ProfileCard from "@/components/ProfileCard";
 import type { BodyParseResult, CitationEntry } from "@/app/lib/academicParser";
 import { countAcademicWords } from "@/app/lib/docxParser";
-import { FileText, Layers, Search, ShieldCheck, Sparkles, UploadCloud, Zap } from "lucide-react";
+import { FileText, Layers, Search, ShieldCheck, UploadCloud } from "lucide-react";
 import type { ChangeEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -51,15 +51,6 @@ export default function Home() {
   }, [citationExclusions, result]);
   const citationWordsExcluded = Math.max(0, baseRemovedWords - includedCitationWords);
   const adjustedWordCount = Math.max(0, baseWordCount + includedCitationWords);
-
-  const bodyStartLabel = result
-    ? result.startedBy === "heading"
-      ? result.startHeading || "Heading"
-      : result.startedBy === "fallback"
-        ? "Fallback"
-        : "--"
-    : "--";
-
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -186,9 +177,14 @@ export default function Home() {
                 className="scale-[0.42] origin-top-right"
                 avatarUrl="/code-icon.svg"
                 iconUrl="/code-icon.svg"
+                miniAvatarUrl="/code-icon.svg"
                 name="Selim"
                 title="Bored engineer"
                 showUserInfo={false}
+                innerGradient="linear-gradient(145deg,#321464 0%,#5c3dff 60%,#ff5dc1 100%)"
+                behindGlowColor="rgba(138,193,255,0.4)"
+                behindGlowSize="58%"
+                onContactClick={() => {}}
               />
             </div>
             <Badge className="w-fit rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)]">

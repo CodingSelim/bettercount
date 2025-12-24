@@ -13,14 +13,6 @@
   }
 }
 
-@supports (property(--border-angle)) {
-  @property --border-angle {
-    inherits: false;
-    initial-value: 0deg;
-    syntax: "<angle>";
-  }
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
