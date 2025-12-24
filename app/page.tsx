@@ -168,7 +168,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl items-stretch gap-8 px-6 pt-24 pb-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1.1fr)] lg:pt-28 lg:pb-16">
+      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl items-stretch gap-6 px-4 pt-16 pb-10 sm:gap-8 sm:px-6 sm:pt-20 sm:pb-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1.1fr)] lg:pt-28 lg:pb-16">
         <Card className="relative glow-panel h-full border border-[#7ad8ff]/35 bg-[#0f0f0f]/85 shadow-[0_0_30px_rgba(122,216,255,0.25),0_45px_100px_rgba(10,6,30,0.65)]">
           <CardHeader className="relative space-y-4 lg:pr-48">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -203,11 +203,11 @@ export default function Home() {
             <Badge className="w-fit rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)]">
               Precision Mode
             </Badge>
-            <CardTitle className="mt-3 font-display flex items-center gap-2 text-[2.25rem] leading-tight text-white sm:text-[2.75rem] whitespace-nowrap">
+            <CardTitle className="mt-3 font-display flex flex-wrap items-center gap-2 text-[1.75rem] leading-tight text-white sm:flex-nowrap sm:text-[2.25rem] lg:text-[2.75rem] sm:whitespace-nowrap">
               <span>Stop counting</span>
               <RotatingText
                 texts={["citations", "tables", "captions"]}
-                mainClassName="px-2 sm:px-2 md:px-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white overflow-hidden py-0.5 sm:py-1 md:py-1.5 justify-center rounded-lg text-[1.9rem] sm:text-[2.25rem]"
+                mainClassName="px-2 sm:px-2 md:px-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white overflow-hidden py-0.5 sm:py-1 md:py-1.5 justify-center rounded-lg text-[1.5rem] sm:text-[1.9rem] lg:text-[2.25rem]"
                 staggerFrom="last"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
@@ -220,7 +220,7 @@ export default function Home() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="mt-12 rounded-3xl border border-white/10 bg-black/40 p-5">
+            <div className="mt-8 rounded-3xl border border-white/10 bg-black/40 p-5 sm:mt-10 lg:mt-12">
               <TooltipProvider>
                 <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "text" | "docx")} className="space-y-4">
                   <TabsList className="grid w-full grid-cols-2 bg-white/5">
@@ -233,7 +233,7 @@ export default function Home() {
                       Upload DOCX
                     </TabsTrigger>
                   </TabsList>
-                  <TabsContent value="text" className="space-y-3 min-h-[520px]">
+                  <TabsContent value="text" className="space-y-3 min-h-[360px] sm:min-h-[520px]">
                     <Textarea
                       placeholder="Paste your essay or report body here..."
                       value={textInput}
@@ -241,15 +241,15 @@ export default function Home() {
                         setTextInput(event.target.value);
                         setError(null);
                       }}
-                      className="min-h-[360px] border-white/10 bg-black/40 text-white/90 placeholder:text-white/35"
+                      className="min-h-[240px] border-white/10 bg-black/40 text-white/90 placeholder:text-white/35 sm:min-h-[360px]"
                     />
                     <div className="flex flex-wrap items-center gap-2">
                       <Badge className="bg-white/10 text-white/70">Plain text = citations only</Badge>
                       <Badge className="bg-white/10 text-white/70">Headings included</Badge>
                     </div>
                   </TabsContent>
-                  <TabsContent value="docx" className="space-y-3 min-h-[520px]">
-                    <label className="group relative flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-white/20 bg-white/5 p-6 text-center transition hover:border-purple-500/70 hover:bg-white/10">
+                  <TabsContent value="docx" className="space-y-3 min-h-[360px] sm:min-h-[520px]">
+                    <label className="group relative flex min-h-[200px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-white/20 bg-white/5 p-6 text-center transition hover:border-purple-500/70 hover:bg-white/10 sm:min-h-[220px]">
                       <Input
                         key={fileInputKey}
                         type="file"
@@ -332,7 +332,7 @@ export default function Home() {
           <CardContent className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
               <p className="text-xs uppercase tracking-[0.32em] text-white/50">Citations + Tables</p>
-              <p className="font-display text-5xl text-white">
+              <p className="font-display text-4xl text-white sm:text-5xl">
                 {result ? (citationCount + tableCount).toLocaleString() : "0"}
               </p>
               <p className="text-sm text-white/50">
@@ -376,7 +376,7 @@ export default function Home() {
                   Citation Details
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="citations" className="space-y-3 min-h-[460px]">
+              <TabsContent value="citations" className="space-y-3 min-h-[340px] sm:min-h-[460px]">
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
                   <Input
@@ -386,8 +386,8 @@ export default function Home() {
                     className="pl-9 border-white/10 bg-black/40 text-white/80 placeholder:text-white/35"
                   />
                 </div>
-                <div className="overflow-hidden rounded-2xl border border-white/10">
-                  <div className="grid grid-cols-[1.4fr_0.6fr_0.8fr_0.7fr] border-b border-white/10 text-xs uppercase tracking-[0.2em] text-white/40">
+                <div className="overflow-x-auto rounded-2xl border border-white/10">
+                  <div className="min-w-[560px] grid grid-cols-[1.4fr_0.6fr_0.8fr_0.7fr] border-b border-white/10 text-xs uppercase tracking-[0.2em] text-white/40">
                     <div className="px-4 py-3">In-text citation</div>
                     <div className="px-4 py-3">Words</div>
                     <div className="px-4 py-3">Occurrences</div>
@@ -403,7 +403,7 @@ export default function Home() {
                       return (
                         <div
                           key={citation.text}
-                          className="grid grid-cols-[1.4fr_0.6fr_0.8fr_0.7fr] items-center border-b border-white/10 last:border-b-0"
+                          className="min-w-[560px] grid grid-cols-[1.4fr_0.6fr_0.8fr_0.7fr] items-center border-b border-white/10 last:border-b-0"
                         >
                           <div className="px-4 py-3 text-sm text-white/80">{citation.text}</div>
                           <div className="px-4 py-3 text-sm text-white/70">{citation.words}</div>
@@ -428,7 +428,7 @@ export default function Home() {
                   )}
                 </div>
               </TabsContent>
-              <TabsContent value="details" className="space-y-3 min-h-[460px]">
+              <TabsContent value="details" className="space-y-3 min-h-[340px] sm:min-h-[460px]">
                 <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
                   <div className="flex items-center justify-between text-sm text-white/60">
                     <span>Total citations detected</span>
