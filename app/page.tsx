@@ -183,9 +183,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="absolute top-4 right-4 hidden lg:block pointer-events-auto">
+            <div className="absolute top-3 right-3 hidden lg:block pointer-events-auto">
               <ProfileCard
-                className="scale-[0.42] origin-top-right"
+                className="scale-[0.35] origin-top-right"
                 avatarUrl="/code-icon.svg"
                 iconUrl="/code-icon.svg"
                 miniAvatarUrl="/code-icon.svg"
