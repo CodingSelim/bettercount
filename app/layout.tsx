@@ -16,7 +16,7 @@ const displayFont = Syne({
 
 export const metadata: Metadata = {
   title: "BetterCount",
-  description: "Citations and tables tracker that emphasizes manual word adjustments with a luminous UI.",
+  description: "Quick citation + table/caption counter.",
 };
 
 export default function RootLayout({
