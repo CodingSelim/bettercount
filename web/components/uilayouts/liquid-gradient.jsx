@@ -151,7 +151,7 @@ const GradientSvg = ({ className, isHovered, colors }) => {
           cy="0"
           r="1"
           gradientUnits="userSpaceOnUse"
-          // @ts-ignore
+          // @ts-expect-error motion radialGradient animate prop
           animate={isHovered ? variants.hovered : variants.notHovered}>
           {stopsAnimationArray.map((stopConfigs, index) => (
             <AnimatePresence key={index}>
@@ -177,7 +177,7 @@ const GradientSvg = ({ className, isHovered, colors }) => {
     </svg>
   );
 };
-export const Liquid = ({ isHovered, colors = defaultColors, buttonType }) => {
+export const Liquid = ({ isHovered, colors = defaultColors }) => {
   return (
     <>
       {Array.from({ length: 7 }).map((_, index) => (
