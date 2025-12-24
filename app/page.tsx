@@ -12,7 +12,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ProfileCard from "@/components/ProfileCard";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import type { BodyParseResult, CitationEntry } from "@/app/lib/academicParser";
 import { countAcademicWords } from "@/app/lib/docxParser";
 import { FileText, Layers, Search, ShieldCheck, UploadCloud } from "lucide-react";
@@ -354,15 +353,6 @@ export default function Home() {
                   {tableCount.toLocaleString()}
                 </p>
                 <p className="text-xs text-white/50">Structural blocks skipped</p>
-              </div>
-            </div>
-            <div className="relative flex items-center gap-3 rounded-[26px] border border-white/10 bg-[#07031b] px-5 py-4 shadow-[0_20px_60px_rgba(5,3,18,0.8)] ring-1 ring-[#7d64ff]/20">
-              <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-white/5 bg-gradient-to-br from-[#7d64ff]/30 to-[#050312]/80 blur-lg" />
-              <div className="relative z-10 flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-white/60">
-                <Badge className="px-3 py-1 text-[0.55rem] tracking-[0.5em] uppercase bg-white/10 text-white/60">Note</Badge>
-                <AnimatedGradientText className="text-base font-semibold text-white sm:text-lg" colorFrom="#9b8eff" colorTo="#ff6fd8">
-                  Use Word's word counter and subtract the number of citations shown above.
-                </AnimatedGradientText>
               </div>
             </div>
             <Separator className="bg-white/10" />
