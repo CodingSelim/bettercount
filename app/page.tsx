@@ -47,18 +47,23 @@ export default function Home() {
         ? "Ready"
         : "Awaiting Input";
 
-  const baseWordCount = result?.wordCount ?? 0;
-  const baseRemovedWords = result?.citationWordsRemoved ?? 0;
-  const totalWordCount = result ? result.rawWordCount || baseWordCount + baseRemovedWords : 0;
-  const includedCitationWords = useMemo(() => {
+  const citationCount = result?.citationCount ?? 0;
+  const tableCount = result?.tableCount ?? 0;
+  const excludedCitationsCount = useMemo(() => {
     if (!result) return 0;
     return result.citations.reduce((sum, citation) => {
       const isExcluded = citationExclusions[citation.text] ?? true;
-      return isExcluded ? sum : sum + citation.words * citation.occurrences;
+      return isExcluded ? sum + citation.occurrences : sum;
     }, 0);
   }, [citationExclusions, result]);
-  const citationWordsExcluded = Math.max(0, baseRemovedWords - includedCitationWords);
-  const adjustedWordCount = Math.max(0, baseWordCount + includedCitationWords);
+  const includedCitationsCount = useMemo(() => {
+    if (!result) return 0;
+    return result.citations.reduce((sum, citation) => {
+      const isExcluded = citationExclusions[citation.text] ?? true;
+      return isExcluded ? sum : sum + citation.occurrences;
+    }, 0);
+  }, [citationExclusions, result]);
+  const uniqueCitationsCount = result?.citations.length ?? 0;
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -326,35 +331,40 @@ export default function Home() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-black/40 p-5">
-              <p className="text-xs uppercase tracking-[0.32em] text-white/50">Body Word Count</p>
+              <p className="text-xs uppercase tracking-[0.32em] text-white/50">Citations + Tables</p>
               <p className="font-display text-5xl text-white">
-                {result ? adjustedWordCount.toLocaleString() : "0"}
+                {result ? (citationCount + tableCount).toLocaleString() : "0"}
               </p>
               <p className="text-sm text-white/50">
-                {result ? "Updated from your latest input." : "Waiting for input"}
+                {result
+                  ? `Citations: ${citationCount.toLocaleString()} · Tables: ${tableCount}`
+                  : "Waiting for input"}
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
                 <div className="flex items-center justify-between text-sm text-white/60">
-                  <span>Words removed</span>
+                  <span>Citations excluded</span>
                   <ShieldCheck className="h-4 w-4 text-purple-400" />
                 </div>
                 <p className="mt-2 text-2xl font-semibold text-white">
-                  {result ? citationWordsExcluded.toLocaleString() : "0"}
+                  {excludedCitationsCount.toLocaleString()}
                 </p>
-                <p className="text-xs text-white/50">Citations excluded</p>
+                <p className="text-xs text-white/50">Based on toggled citations</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div className="flex items-center justify-between text-sm text-white/60">
-                  <span>Tables / Captions</span>
+                  <span>Tables detected</span>
                   <Layers className="h-4 w-4 text-purple-400" />
                 </div>
                 <p className="mt-2 text-2xl font-semibold text-white">
-                  {result ? result.structuralBlocksExcluded.toLocaleString() : "0"}
+                  {tableCount.toLocaleString()}
                 </p>
                 <p className="text-xs text-white/50">Structural blocks skipped</p>
               </div>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-[#07071c]/80 px-4 py-3 text-xs uppercase tracking-[0.3em] text-white/60">
+              Use Word's word counter and subtract the number of citations shown above.
             </div>
             <Separator className="bg-white/10" />
             <Tabs defaultValue="citations" className="space-y-4">
@@ -363,7 +373,7 @@ export default function Home() {
                   Citations
                 </TabsTrigger>
                 <TabsTrigger value="details" className="data-[state=active]:bg-white/15">
-                  Word Count Details
+                  Citation Details
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="citations" className="space-y-3 min-h-[460px]">
@@ -421,33 +431,44 @@ export default function Home() {
               <TabsContent value="details" className="space-y-3 min-h-[460px]">
                 <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
                   <div className="flex items-center justify-between text-sm text-white/60">
-                    <span>Words without citations</span>
+                    <span>Total citations detected</span>
                     <span className="text-lg font-semibold text-white">
-                      {result ? adjustedWordCount.toLocaleString() : "0"}
+                      {uniqueCitationsCount.toLocaleString()}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs text-white/50">Word count excluding selected citations.</p>
+                  <p className="mt-2 text-xs text-white/50">
+                    {result ? "Unique citations found in the input." : "Run a count to see citations."}
+                  </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
                   <div className="flex items-center justify-between text-sm text-white/60">
-                    <span>Total words</span>
+                    <span>Citations currently excluded</span>
                     <span className="text-lg font-semibold text-white">
-                      {result ? totalWordCount.toLocaleString() : "0"}
+                      {excludedCitationsCount.toLocaleString()}
                     </span>
                   </div>
-                  <p className="mt-2 text-xs text-white/50">Word count before citation removal.</p>
+                  <p className="mt-2 text-xs text-white/50">Toggle citations to include them.</p>
                 </div>
-              <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/60">
-                <div className="flex items-center gap-2 text-white/70">
-                  <ShieldCheck className="h-4 w-4 text-purple-400" />
-                  Output notes
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <div className="flex items-center justify-between text-sm text-white/60">
+                    <span>Citations currently included</span>
+                    <span className="text-lg font-semibold text-white">
+                      {includedCitationsCount.toLocaleString()}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-white/50">These will affect your manual subtraction.</p>
                 </div>
-                <ul className="mt-3 space-y-2">
-                  <li>Headings count toward the final body total.</li>
-                  <li>References, appendices, and everything after are ignored.</li>
-                  <li>DOCX preserves tables and captions for accurate exclusion.</li>
-                </ul>
-              </div>
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/60">
+                  <div className="flex items-center gap-2 text-white/70">
+                    <ShieldCheck className="h-4 w-4 text-purple-400" />
+                    Output notes
+                  </div>
+                  <ul className="mt-3 space-y-2">
+                    <li>Headings count toward the final body total.</li>
+                    <li>References, appendices, and everything after are ignored.</li>
+                    <li>DOCX preserves tables and captions for accurate exclusion.</li>
+                  </ul>
+                </div>
               </TabsContent>
             </Tabs>
           </CardContent>

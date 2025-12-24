@@ -8,6 +8,8 @@ export type BodyParseResult = {
   citationWordsRemoved: number;
   structuralBlocksExcluded: number;
   citations: CitationEntry[];
+  citationCount: number;
+  tableCount: number;
 };
 
 export type DocxBlockKind = "paragraph" | "heading" | "table" | "caption" | "unknown";
@@ -137,6 +139,10 @@ export function countAcademicBodyWordsFromBlocks(blocks: DocxBlock[]): BodyParse
 
   const citationEntries = toCitationEntries(citationMap);
   const citationWordsRemovedTotal = sumCitationWords(citationEntries);
+  const citationOccurrencesCount = citationEntries.reduce(
+    (sum, citation) => sum + citation.occurrences,
+    0,
+  );
 
   return {
     wordCount: totalWords,
@@ -148,6 +154,8 @@ export function countAcademicBodyWordsFromBlocks(blocks: DocxBlock[]): BodyParse
     citationWordsRemoved: citationWordsRemovedTotal,
     structuralBlocksExcluded,
     citations: citationEntries,
+    citationCount: citationOccurrencesCount,
+    tableCount: structuralBlocksExcluded,
   };
 }
 
@@ -232,6 +240,10 @@ export function countAcademicBodyWords(input: string): BodyParseResult {
 
   const citationEntries = toCitationEntries(citationMap);
   const citationWordsRemovedTotal = sumCitationWords(citationEntries);
+  const citationOccurrencesCount = citationEntries.reduce(
+    (sum, citation) => sum + citation.occurrences,
+    0,
+  );
 
   return {
     wordCount: totalWords,
@@ -243,6 +255,8 @@ export function countAcademicBodyWords(input: string): BodyParseResult {
     citationWordsRemoved: citationWordsRemovedTotal,
     structuralBlocksExcluded,
     citations: citationEntries,
+    citationCount: citationOccurrencesCount,
+    tableCount: structuralBlocksExcluded,
   };
 }
 
