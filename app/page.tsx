@@ -18,6 +18,14 @@ import { FileText, Layers, Search, ShieldCheck, UploadCloud } from "lucide-react
 import type { ChangeEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 
+const FLOATING_LINES_GRADIENT = ["#7ad8ff", "#8ac1ff", "#7d64ff", "#d68cff"];
+const FLOATING_LINES_WAVES = ["top", "middle", "bottom"];
+const FLOATING_LINES_COUNT = [6, 4, 6];
+const FLOATING_LINES_DISTANCE = [5, 8, 5];
+const FLOATING_LINES_TOP_POS = { x: 10, y: 0.5, rotate: -0.4 };
+const FLOATING_LINES_MIDDLE_POS = { x: 5, y: 0, rotate: 0.2 };
+const FLOATING_LINES_BOTTOM_POS = { x: 2, y: -0.7, rotate: -1 };
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"text" | "docx">("text");
   const [textInput, setTextInput] = useState("");
@@ -137,13 +145,13 @@ export default function Home() {
 
       <div className="pointer-events-none absolute inset-0 opacity-60">
         <FloatingLines
-          linesGradient={["#7ad8ff", "#8ac1ff", "#7d64ff", "#d68cff"]}
-          enabledWaves={["top", "middle", "bottom"]}
-          lineCount={[6, 4, 6]}
-          lineDistance={[5, 8, 5]}
-          topWavePosition={{ x: 10, y: 0.5, rotate: -0.4 }}
-          middleWavePosition={{ x: 5, y: 0, rotate: 0.2 }}
-          bottomWavePosition={{ x: 2, y: -0.7, rotate: -1 }}
+          linesGradient={FLOATING_LINES_GRADIENT}
+          enabledWaves={FLOATING_LINES_WAVES}
+          lineCount={FLOATING_LINES_COUNT}
+          lineDistance={FLOATING_LINES_DISTANCE}
+          topWavePosition={FLOATING_LINES_TOP_POS}
+          middleWavePosition={FLOATING_LINES_MIDDLE_POS}
+          bottomWavePosition={FLOATING_LINES_BOTTOM_POS}
           animationSpeed={0.8}
           interactive={true}
           bendRadius={5.0}
@@ -394,7 +402,7 @@ export default function Home() {
                             <button
                               type="button"
                               onClick={() => toggleCitation(citation)}
-                              className={`relative h-6 w-11 rounded-full border transition ${isExcluded ? "border-[#f5c542] bg-[#f5c542]/80" : "border-white/20 bg-white/10"
+                              className={`relative h-6 w-11 rounded-full border transition ${isExcluded ? "border-[#8ac1ff]/70 bg-gradient-to-r from-[#7d64ff] to-[#ff5dc1] shadow-[0_0_12px_rgba(122,216,255,0.35)]" : "border-white/20 bg-white/10"
                                 }`}
                               aria-pressed={isExcluded}
                             >
