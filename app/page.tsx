@@ -10,8 +10,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Liquid } from "@/components/uilayouts/liquid-gradient";
 import ProfileCard from "@/components/ProfileCard";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import type { BodyParseResult, CitationEntry } from "@/app/lib/academicParser";
 import { countAcademicWords } from "@/app/lib/docxParser";
 import { FileText, Layers, Search, ShieldCheck, UploadCloud } from "lucide-react";
@@ -36,8 +36,6 @@ export default function Home() {
   const [isCounting, setIsCounting] = useState(false);
   const [citationSearch, setCitationSearch] = useState("");
   const [citationExclusions, setCitationExclusions] = useState<Record<string, boolean>>({});
-  const [isLiquidHovered, setIsLiquidHovered] = useState(false);
-
   const canCount = activeTab === "text" ? textInput.trim().length > 0 : Boolean(docxFile);
   const statusLabel = isCounting
     ? "Counting..."
@@ -296,19 +294,13 @@ export default function Home() {
 
               <div className="mt-5 flex flex-wrap items-center gap-3">
                 <div className="relative w-full max-w-[360px]">
-                  <div className="pointer-events-none absolute inset-0 rounded-full overflow-hidden border border-[#7ad8ff]/40 shadow-[0_0_25px_rgba(122,216,255,0.35)]">
-                    <Liquid isHovered={isLiquidHovered} />
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-transparent" />
-                  </div>
-                  <Button
+                  <RainbowButton
                     className="relative z-10 w-full rounded-full bg-transparent px-6 py-3 text-base font-semibold text-white backdrop-blur-lg"
                     onClick={handleCount}
-                    onMouseEnter={() => setIsLiquidHovered(true)}
-                    onMouseLeave={() => setIsLiquidHovered(false)}
                     disabled={!canCount || isCounting}
                   >
                     {isCounting ? "Counting..." : "Count Body Words"}
-                  </Button>
+                  </RainbowButton>
                 </div>
                 <Button variant="outline" className="border-white/20 text-white/80" onClick={handleClear}>
                   Clear
