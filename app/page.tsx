@@ -363,8 +363,14 @@ export default function Home() {
                 <p className="text-xs text-white/50">Structural blocks skipped</p>
               </div>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-[#07071c]/80 px-4 py-3 text-xs uppercase tracking-[0.3em] text-white/60">
-              Use Word's word counter and subtract the number of citations shown above.
+            <div className="rounded-[26px] border border-[#a877ff]/60 bg-gradient-to-r from-[#12031c] via-[#070412] to-[#0d0312] px-5 py-4 text-sm font-semibold text-white shadow-[0_0_40px_rgba(138,193,255,0.3)] ring-1 ring-[#8ac1ff]/30">
+              <div className="flex items-center gap-2 text-white/80">
+                <Badge className="px-2 py-1 text-[0.6rem] tracking-[0.35em] uppercase bg-white/10 text-white/60">Note</Badge>
+                <span>Use Word's word counter and subtract the number of citations shown above.</span>
+              </div>
+              <p className="mt-2 text-xs text-white/60">
+                This keeps the final body-only total manual while still surfacing every citation you need to remove.
+              </p>
             </div>
             <Separator className="bg-white/10" />
             <Tabs defaultValue="citations" className="space-y-4">
