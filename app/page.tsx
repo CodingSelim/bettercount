@@ -180,7 +180,6 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="font-display text-xl tracking-tight">BetterCount</p>
-                  <p className="text-xs uppercase tracking-[0.28em] text-white/60">Academic body counter</p>
                 </div>
               </div>
             </div>
@@ -199,9 +198,6 @@ export default function Home() {
                 onContactClick={() => {}}
               />
             </div>
-            <Badge className="w-fit rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-              Precision Mode
-            </Badge>
             <CardTitle className="mt-3 font-display flex flex-wrap items-center gap-2 text-[1.75rem] leading-tight text-white sm:flex-nowrap sm:text-[2.25rem] lg:text-[2.75rem] sm:whitespace-nowrap">
               <span>Stop counting</span>
               <RotatingText
